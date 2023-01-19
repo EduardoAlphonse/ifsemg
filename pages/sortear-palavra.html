@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Sortear Palavra</title>
+  </head>
+  <body
+    class="flex justify-center items-center h-screen bg-zinc-900 text-zinc-800"
+  >
+    <main
+      class="flex flex-col gap-4 p-8 rounded-lg bg-zinc-100 text-center h-auto"
+    >
+      <h1 class="text-xl font-medium">Sorteador de palavras</h1>
+      <h2 class="mt-2 text-sm">
+        Digite uma lista de palavras separadas por vírgula
+      </h2>
+
+      <form class="flex flex-col gap-2" id="form">
+        <input
+          type="text"
+          id="wordsInput"
+          required
+          placeholder="Ex.: html,css,javascript"
+          class="outline-none px-4 py-2 rounded border-2 border-zinc-300 focus:border-emerald-500 transition-colors duration-300 bg-transparent focus:bg-emerald-100"
+        />
+        <button
+          class="px-4 py-2 rounded bg-emerald-600 hover:bg-emerald-500 transition-colors duration-300 text-white font-medium"
+        >
+          SORTEAR
+        </button>
+      </form>
+
+      <div id="result" class="hidden">
+        <h3 class="text-sm">Palavra sorteada:</h3>
+        <strong id="drawnWord" class="text-lg italic"></strong>
+      </div>
+    </main>
+
+    <script>
+      const drawWord = (event) => {
+        event.preventDefault();
+
+        let wordlist = document.getElementById("wordsInput").value.split(",");
+        wordlist = wordlist.filter((word) => word.trim() !== "");
+
+        if (wordlist.length === 0) {
+          alert(
+            "Insira palavras válidas. Espaços em branco não são palavras válidas."
+          );
+          document.getElementById("wordsInput").value = "";
+          return;
+        }
+
+        const randomIndex = Math.floor(Math.random() * wordlist.length);
+        const drawnWord = wordlist[randomIndex];
+
+        document.getElementById("result").classList = "block";
+        document.getElementById("drawnWord").innerText = drawnWord;
+      };
+
+      document.getElementById("form").addEventListener("submit", drawWord);
+    </script>
+  </body>
+</html>
