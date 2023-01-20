@@ -59,6 +59,12 @@
 
         document.getElementById("result").classList = "block";
         document.getElementById("drawnWord").innerText = drawnWord;
+
+        if (drawnWord.toLowerCase().includes("z")) {
+          document.body.style.backgroundColor = "#059669";
+        } else {
+          document.body.style.backgroundColor = "#18181b";
+        }
       };
 
       document.getElementById("form").addEventListener("submit", drawWord);
