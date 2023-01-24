@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projeto Acadêmico</title>
+
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Projeto Acadêmico</h2>
+    <h3>Registrar nota</h3>
+    <form id="formulario">
+      <input type="number" min="0" id="nota" />
+      <button>Registrar</button>
+    </form>
+
+    <hr />
+
+    <div>
+      <p>Quantidade de notas: <span id="quantidadeDeNotas"></span></p>
+      <p>Média das notas: <span id="mediaDasNotas"></span></p>
+      <p>MAIOR nota: <span id="maiorNota"></span></p>
+      <p>MENOR nota: <span id="menorNota"></span></p>
+      <p>
+        Quantidade de alunos que obtiveram a MENOR nota:
+        <span id="quantidadeMenorNota"></span>
+      </p>
+      <p>
+        Quantidade de alunos que obtiveram a MAIOR nota:
+        <span id="quantidadeMaiorNota"></span>
+      </p>
+    </div>
+
+    <script>
+      window.onload = () => nota.focus();
+
+      const notas = [];
+      let maiorNota = null;
+      let menorNota = null;
+      let quantidadeMenorNota;
+      let quantidadeMaiorNota;
+
+      const registrarNota = (event) => {
+        event.preventDefault();
+
+        quantidadeMenorNota = 0;
+        quantidadeMaiorNota = 0;
+
+        const novaNota = Number(nota.value);
+
+        notas.push(novaNota);
+
+        maiorNota =
+          maiorNota === null
+            ? novaNota
+            : novaNota > maiorNota
+            ? novaNota
+            : maiorNota;
+
+        menorNota =
+          menorNota === null
+            ? novaNota
+            : novaNota < menorNota
+            ? novaNota
+            : menorNota;
+
+        for (let n of notas) {
+          n === menorNota && quantidadeMenorNota++;
+          n === maiorNota && quantidadeMaiorNota++;
+        }
+
+        atualizarInformacoes();
+
+        nota.value = "";
+        nota.focus();
+      };
+
+      const atualizarInformacoes = () => {
+        document.getElementById("quantidadeDeNotas").innerHTML = notas.length;
+        document.getElementById("quantidadeDeNotas").innerHTML = notas.length;
+        document.getElementById("mediaDasNotas").innerHTML = (
+          notas.reduce((cur, acc) => cur + acc) / notas.length
+        ).toFixed(2);
+        document.getElementById("maiorNota").innerHTML = maiorNota;
+        document.getElementById("menorNota").innerHTML = menorNota;
+        document.getElementById("quantidadeMenorNota").innerHTML =
+          quantidadeMenorNota;
+        document.getElementById("quantidadeMaiorNota").innerHTML =
+          quantidadeMaiorNota;
+
+        // atualizarNotas();
+      };
+
+      // const atualizarNotas = () => {
+      //   if (notas.length === 0) return;
+
+      //   const tabela = document.createElement("table");
+      //   const linha = document.createElement("tr");
+      //   const colunaNome = document.createElement("td");
+      //   const colunaNota = document.createElement("td");
+
+      //   document.getElementById("notas").innerHTML = tabela;
+
+      //   for (let i = 0; i < notas.length; i++) {
+      //     const nome = colunaNome;
+      //     nome.innerHTML = `Aluno ${i + 1}: `;
+
+      //     const nota = colunaNota;
+      //     nota.innerHTML = notas[i];
+
+      //     linha.append(nome, nota);
+      //     tabela.appendChild(linha);
+      //   }
+
+      //   console.log(tabela);
+
+      //   document.getElementById("notas").appendChild(tabela);
+      // };
+
+      formulario.addEventListener("submit", registrarNota);
+    </script>
+  </body>
+</html>

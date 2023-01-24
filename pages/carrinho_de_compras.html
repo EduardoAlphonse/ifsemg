@@ -1,0 +1,36 @@
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>CARRINHO DE COMPRAS</title>
+
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <p>Quantidade de itens no carrinho de compras: <span id="saleAmount">0</span></p>
+    <p>Valor total das vendas: R$ <span id="totalSaleValue">0,00</span></p>
+    <p>Valor da venda: <input type="number" min="0" id="saleInput"></p>
+    <button onclick="saleValue()">Registrar</button>
+
+    <script>
+        const sales = [];
+
+        const saleValue = () => {
+            const value = parseFloat(document.getElementById("saleInput").value);
+            sales.push(value);
+            saleInput.value = '';
+
+            document.getElementById("saleAmount").innerHTML = sales.length;
+
+            const totalSaleValue = sales.reduce((prev, cur) => prev + cur);
+            document.getElementById("totalSaleValue").innerHTML = totalSaleValue.toFixed(2);
+        }
+    </script>
+</body>
+
+</html>

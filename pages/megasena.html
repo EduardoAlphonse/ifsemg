@@ -1,0 +1,44 @@
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>MEGASENA</title>
+
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <p>DEZENA 1: <input type="number" min="1" max="60" readonly></p>
+    <p>DEZENA 2: <input type="number" min="1" max="60" readonly></p>
+    <p>DEZENA 3: <input type="number" min="1" max="60" readonly></p>
+    <p>DEZENA 4: <input type="number" min="1" max="60" readonly></p>
+    <p>DEZENA 5: <input type="number" min="1" max="60" readonly></p>
+    <p>DEZENA 6: <input type="number" min="1" max="60" readonly></p>
+
+    <button onclick="drawNumbers()">Sortear Dezenas</button>
+
+    <script>
+        let drawnNumbers = [];
+
+        const drawNumbers = () => {
+            drawnNumbers = [];
+
+            do {
+                const number = Math.floor(Math.random() * 60) + 1;
+                if (!drawnNumbers.includes(number)) {
+                    drawnNumbers.push(number);
+                }
+            } while (drawnNumbers.length < 6);
+
+            Array.from(document.querySelectorAll('input')).forEach((input, index) => {
+                input.value = drawnNumbers[index];
+            })
+        }
+    </script>
+</body>
+
+</html>
